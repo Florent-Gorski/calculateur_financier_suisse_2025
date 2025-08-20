@@ -1,37 +1,27 @@
-// src/services/tax/drtax.ts
-export type DrTaxNPBasicData = {
-  "tax-year"?: number;
-  "marital-status": number;           // index de /MaritalStatusList
-  "canton"?: number;                  // index de /CantonList
-  "municipality-of-taxation"?: string;
-  "zip"?: number;
-  "domicile"?: string;
-  "religious-affiliation"?: number;   // index de /ReligiousAffiliationList
-  "children"?: number;
-  "concubinage"?: boolean;
-  "tax-liability-from"?: string;      // YYYY-MM-DD
-  "tax-liability-till"?: string;      // YYYY-MM-DD
-};
-
-export type DrTaxNPFiscal = {
-  "taxable-amounts": {
-    "cantonal-income": number;
-    "cantonal-wealth": number;
-    "confederation-income"?: number;
-  };
-};
-
-export async function drtaxCalculateNP(input: {
-  language?: "de" | "fr" | "it" | "en";
-  "basic-data": DrTaxNPBasicData;
-  "fiscal-factors": DrTaxNPFiscal;
-})
+// calcule NP (personnes physiques)
+export async function drtaxCalculateNP(payload: any)
 {
   const res = await fetch("/.netlify/functions/drtax-np", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(input)
+    body: JSON.stringify(payload)
   });
   if (!res.ok) throw new Error(`DrTax error ${res.status}`);
   return res.json();
+}
+
+// picklist avec cache local 24h
+export async function drtaxPicklist(path: string)
+{
+  const key = `drtax:${path}`;
+  const raw = localStorage.getItem(key);
+  if (raw) {
+    const { ts, data } = JSON.parse(raw);
+    if (Date.now() - ts < 24 * 60 * 60 * 1000) return data;
+  }
+  const res = await fetch(`/.netlify/functions/drtax-picklist?path=${encodeURIComponent(path)}`);
+  if (!res.ok) throw new Error(`Picklist error ${res.status}`);
+  const json = await res.json();
+  localStorage.setItem(key, JSON.stringify({ ts: Date.now(), data: json }));
+  return json;
 }
