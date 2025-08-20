@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>404 – Page introuvable | Calculateur Financier Suisse 2025</title>
+    <meta name="robots" content="noindex" />
+    <style>
+      :root {
+        --bg: #0b1220;
+        --card: #111a2e;
+        --muted: #7a88a2;
+        --text: #e9eef7;
+        --accent: #00c2ff;
+        --accent2: #2bff88;
+        --ring: rgba(0, 194, 255, 0.4);
+      }
+      * { box-sizing: border-box; }
+      html, body { height: 100%; margin: 0; }
+      body {
+        background: radial-gradient(1000px 600px at 10% -10%, #0d1b2a 0%, var(--bg) 55%),
+                    radial-gradient(800px 500px at 110% 10%, #001b23 0%, var(--bg) 60%);
+        color: var(--text);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+      }
+      .card {
+        width: 100%;
+        max-width: 720px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 24px;
+        padding: 28px;
+        backdrop-filter: blur(8px);
+        box-shadow:
+          0 10px 30px rgba(0,0,0,0.35),
+          0 0 0 1px rgba(255,255,255,0.04) inset;
+        position: relative;
+        overflow: hidden;
+      }
+      .glow {
+        position: absolute;
+        inset: -2px;
+        border-radius: 26px;
+        background: conic-gradient(
+          from 0deg,
+          transparent 0deg,
+          rgba(0,194,255,0.3) 90deg,
+          rgba(43,255,136,0.25) 180deg,
+          rgba(0,194,255,0.3) 270deg,
+          transparent 360deg
+        );
+        filter: blur(18px);
+        opacity: 0.6;
+        pointer-events: none;
+        animation: spin 12s linear infinite;
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(0,194,255,0.12);
+        color: #c8f1ff;
+        border: 1px solid rgba(0,194,255,0.25);
+        font-weight: 600;
+        letter-spacing: .2px;
+      }
+      .title {
+        font-size: clamp(28px, 4.4vw, 40px);
+        line-height: 1.1;
+        margin: 16px 0 8px;
+        font-weight: 800;
+        background: linear-gradient(90deg, #fff, #c8f1ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .subtitle {
+        color: var(--muted);
+        font-size: 16px;
+        margin: 0 0 20px;
+      }
+      .details {
+        margin: 14px 0 26px;
+        padding: 14px 16px;
+        border-radius: 12px;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.06);
+        color: #c9d6e6;
+        font-size: 14px;
+        word-break: break-word;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .btn {
+        appearance: none;
+        border: 0;
+        cursor: pointer;
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-weight: 700;
+        letter-spacing: .2px;
+        transition: transform .08s ease, box-shadow .2s ease, background .2s ease;
+      }
+      .btn:active { transform: translateY(1px); }
+      .btn-primary {
+        background: linear-gradient(180deg, var(--accent), #00a6da);
+        color: #042332;
+        box-shadow: 0 6px 24px var(--ring);
+      }
+      .btn-outline {
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.14);
+        color: var(--text);
+      }
+      .footer {
+        margin-top: 18px;
+        color: #8ea0b8;
+        font-size: 12px;
+      }
+      .flag {
+        width: 18px; height: 18px; border-radius: 3px;
+        background: linear-gradient(90deg,#e21b23 0 50%,#fff 50% 52%,#e21b23 52% 100%);
+        border: 1px solid rgba(255,255,255,0.35);
+      }
+      code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="glow" aria-hidden="true"></div>
+      <div class="badge"><span class="flag" aria-hidden="true"></span> 404 – Page introuvable</div>
+      <h1 class="title">Oups… cette page s’est perdue dans les Alpes.</h1>
+      <p class="subtitle">
+        L’URL demandée n’existe pas (ou plus). Revenons au calcul pour garder le cap.
+      </p>
+
+      <div class="details" id="dbg"></div>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="/">← Retour à l’accueil</a>
+        <button class="btn btn-outline" onclick="history.back()">Revenir en arrière</button>
+        <a class="btn btn-outline" href="mailto:contact@example.ch?subject=Erreur%20404">Signaler un problème</a>
+      </div>
+
+      <div class="footer">
+        Calculateur Financier Suisse 2025 — AVS · LPP · 3ᵉ pilier · Hypothèque · Fiscalité
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const dbg = document.getElementById('dbg');
+        const url = location.href;
+        const ref = document.referrer || '—';
+        const ts = new Date().toLocaleString();
+        dbg.innerHTML = `
+          <div><strong>URL</strong>: <code>${url}</code></div>
+          <div><strong>Référent</strong>: <code>${ref}</code></div>
+          <div><strong>Horodatage</strong>: <code>${ts}</code></div>
+        `;
+      })();
+    </script>
+  </body>
+</html>

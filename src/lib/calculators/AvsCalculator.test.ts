@@ -1,25 +1,21 @@
-import { describe, it, expect } from "vitest";
-import { computeAvsContribution } from "./AvsCalculator";
+import { AvsCalculator } from "./AvsCalculator";
+import Big from "big.js";
 
-describe("computeAvsContribution", () =>
+describe("AvsCalculator", () =>
 {
-  it("computes AVS/AI/APG on a simple annual income", () =>
+  it("calcule correctement la cotisation AVS pour un employé", () =>
   {
-    const out = computeAvsContribution({ annualIncomeCHF: 100000 });
-    expect(out.appliedRatePct).toBeGreaterThan(0);
-    expect(out.totalContributionCHF).toBeGreaterThan(0);
-    // Coherence of breakdown sum:
-    const sum =
-      out.breakdown.employeeCHF +
-      out.breakdown.employerCHF +
-      out.breakdown.aiApgCHF;
-    expect(Number(sum.toFixed(2))).toEqual(
-      Number(out.totalContributionCHF.toFixed(2))
-    );
+    const input = { grossSalary: new Big(60000), isSelfEmployed: false };
+    const result = AvsCalculator.calculate(input);
+    expect(result.annualContribution.toString()).toBe("6360.00"); // 60000 * 0.106
+    expect(result.monthlyPension.toString()).toBe("1260.00");     // clamp min par défaut
   });
 
-  it("throws on invalid income", () =>
+  it("calcule correctement la cotisation AVS pour un indépendant", () =>
   {
-    expect(() => computeAvsContribution({ annualIncomeCHF: -1 })).toThrow();
+    const input = { grossSalary: new Big(60000), isSelfEmployed: true };
+    const result = AvsCalculator.calculate(input);
+    expect(result.annualContribution.toString()).toBe("6360.00");
+    expect(result.monthlyPension.toString()).toBe("1260.00");
   });
 });

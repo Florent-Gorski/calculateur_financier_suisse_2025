@@ -19,12 +19,14 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "types": [
-      "vitest/globals",
+      "jest",
+      "node",
       "@testing-library/jest-dom"
     ]
   },
   "include": [
     "src",
-    "vite.config.ts"
+    "vite.config.ts",
+    "jest.config.ts"
   ]
 }

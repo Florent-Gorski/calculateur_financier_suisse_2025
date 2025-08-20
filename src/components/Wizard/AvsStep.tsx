@@ -1,57 +1,75 @@
 import { useState } from 'react';
-import { AvsCalculator } from '../../engies/AvsCalculator';
-import { AvsInputSchema } from '../../validators/input-validator';
 import Big from 'big.js';
-import { AvsResult } from '../../types/calculation-results.types';
+import { AvsCalculator } from '../../lib/calculators/AvsCalculator';
+import { AvsInputSchema } from '../../validators/input-validator';
+import type { AvsResult } from '../../types/calculation-results.types';
 
 export const AvsStep = () =>
 {
-  const [grossSalary, setGrossSalary] = useState('');
+  const [grossSalary, setGrossSalary] = useState('60000');
   const [isSelfEmployed, setIsSelfEmployed] = useState(false);
   const [result, setResult] = useState<AvsResult | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleCalculate = () =>
   {
     try {
+      setError(null);
       const input = {
-        grossSalary: new Big(grossSalary),
+        grossSalary: new Big(grossSalary || '0'),
         isSelfEmployed,
       };
+      // Validate input with Zod schema
       AvsInputSchema.parse(input);
-      setResult(AvsCalculator.calculate(input));
-    } catch (error) {
-      alert("Entrée invalide : " + error);
+      const res = AvsCalculator.calculate(input);
+      setResult(res);
+    } catch (e: any) {
+      setResult(null);
+      setError(e?.message ?? 'Erreur inconnue');
     }
   };
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow">
-      <input
-        type="number"
-        value={grossSalary}
-        onChange={(e: { target: { value: any; }; }) => setGrossSalary(e.target.value)}
-        placeholder="Salaire brut annuel (CHF)"
-        className="w-full p-2 border rounded"
-      />
-      <label className="block mt-2">
+    <div className="space-y-3">
+      <div>
+        <label className="block text-sm font-medium mb-1">Salaire annuel brut (CHF)</label>
         <input
+          type="number"
+          inputMode="decimal"
+          className="w-full border rounded-lg p-2"
+          value={grossSalary}
+          onChange={(e) => setGrossSalary(e.target.value)}
+          placeholder="60000"
+        />
+      </div>
+
+      <div className="flex items-center gap-2">
+        <input
+          id="isSelfEmployed"
           type="checkbox"
           checked={isSelfEmployed}
           onChange={(e) => setIsSelfEmployed(e.target.checked)}
-          className="mr-2"
         />
-        Indépendant
-      </label>
+        <label htmlFor="isSelfEmployed">Je suis indépendant</label>
+      </div>
+
       <button
         onClick={handleCalculate}
-        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        className="mt-2 px-4 py-2 bg-black text-white rounded-lg"
       >
         Calculer AVS
       </button>
+
+      {error && <p className="text-red-600 text-sm">{error}</p>}
+
       {result && (
-        <div className="mt-4 p-3 bg-gray-100 rounded">
-          <p>Cotisation annuelle AVS : {result.annualContribution.toString()} CHF</p>
-          <p>Rente mensuelle estimée : {result.monthlyPension.toString()} CHF</p>
+        <div className="mt-4 p-3 bg-white rounded-lg border">
+          <p>
+            <strong>Cotisation annuelle AVS</strong> : {result.annualContribution.toString()} CHF
+          </p>
+          <p>
+            <strong>Rente mensuelle estimée</strong> : {result.monthlyPension.toString()} CHF
+          </p>
         </div>
       )}
     </div>
