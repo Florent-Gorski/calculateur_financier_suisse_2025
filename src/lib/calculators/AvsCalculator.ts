@@ -1,8 +1,13 @@
+// src/lib/calculators/AvsCalculator.ts
 import Big from "big.js";
-import rates from "../../config/rates-2025.json";
 import type { AvsInput, AvsOutput } from "../../types/avs.types";
+import { getRates2025Normalized } from "../../utils/loadRates";
 
-/** Estimation simplifiée AVS/AI/APG sur revenu salarié annuel. */
+/**
+ * Estimation simplifiée AVS/AI/APG sur revenu salarié annuel.
+ * - On lit les taux depuis rates-2025.json, quelle que soit sa forme (A ou B).
+ * - aiApgPct est par défaut à 0 si non fourni.
+ */
 export function computeAvsContribution(input: AvsInput): AvsOutput
 {
   const { annualIncomeCHF } = input;
@@ -10,13 +15,10 @@ export function computeAvsContribution(input: AvsInput): AvsOutput
     throw new Error("annualIncomeCHF must be a non-negative finite number");
   }
 
-  const { avs } = rates as {
-    avs: { employeePct: number; employerPct: number; aiApgPct: number };
-  };
-
-  const employeePct = avs.employeePct; // p.ex. 5.3
-  const employerPct = avs.employerPct; // p.ex. 5.3
-  const aiApgPct = avs.aiApgPct;       // p.ex. 1.45
+  const { avs } = getRates2025Normalized();
+  const employeePct = avs.employeePct;
+  const employerPct = avs.employerPct;
+  const aiApgPct = avs.aiApgPct ?? 0;
 
   const totalPct = new Big(employeePct).plus(employerPct).plus(aiApgPct);
   const base = new Big(annualIncomeCHF);
