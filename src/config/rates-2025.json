@@ -1,0 +1,30 @@
+{
+  "avs": {
+    "employeeContributionRate": 0.053,
+    "employerContributionRate": 0.053,
+    "minMonthlyPension": 1260,
+    "maxMonthlyPension": 2520
+  },
+  "lpp": {
+    "entryThreshold": 22680,
+    "coordinationDeduction": 26460,
+    "minCoordinatedSalary": 3780,
+    "maxCoordinatedSalary": 64260,
+    "minInterestRate": 0.0125,
+    "ageCreditRates": {
+      "25-34": 0.07,
+      "35-44": 0.10,
+      "45-54": 0.15,
+      "55-65": 0.18
+    }
+  },
+  "pillar3a": {
+    "maxEmployeeContribution": 7258,
+    "maxSelfEmployedContribution": 36288,
+    "returnRates": {
+      "prudent": 0.015,
+      "realistic": 0.025,
+      "optimistic": 0.04
+    }
+  }
+}
