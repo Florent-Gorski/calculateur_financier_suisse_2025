@@ -2,6 +2,9 @@
 export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: { extend: {} },
-  plugins: [],
+  corePlugins: {
+    preflight: false // ✅ pas de reset global → pas de conflit avec le site hôte
+  },
+  plugins: []
 };
 

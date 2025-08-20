@@ -1,9 +1,22 @@
-@tailwind base;
+/* Pas de @tailwind base; pour éviter le preflight global */
 @tailwind components;
 @tailwind utilities;
 
-html,
-body,
-#root {
-  height: 100%;
+:root {
+  /* Tokens basiques — héritent du thème hôte si présent */
+  --sls-bg: #f5f7fb;
+  --sls-fg: #0f172a;
+  --sls-card: #ffffff;
+  --sls-accent: #0ea5e9;
+}
+
+html, body, #root { height: 100%; }
+
+.sls-widget {
+  background: var(--sls-bg);
+  color: var(--sls-fg);
+}
+
+.sls-card {
+  background: var(--sls-card);
 }
