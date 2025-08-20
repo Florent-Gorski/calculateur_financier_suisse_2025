@@ -1,0 +1,24 @@
+{
+  "brackets": [
+    {
+      "upTo": 14000,
+      "ratePct": 0.5
+    },
+    {
+      "upTo": 30000,
+      "ratePct": 2.2
+    },
+    {
+      "upTo": 50000,
+      "ratePct": 5.0
+    },
+    {
+      "upTo": 80000,
+      "ratePct": 7.5
+    },
+    {
+      "upTo": 120000,
+      "ratePct": 10.0
+    }
+  ]
+}

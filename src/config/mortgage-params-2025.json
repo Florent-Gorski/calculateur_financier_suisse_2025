@@ -1,0 +1,8 @@
+{
+  "stressRatePct": 5.0,
+  "fixedChargesPct": 1.0,
+  "minEquityPct": 20,
+  "targetLtvPct": 65,
+  "amortMaxYears": 15,
+  "affordabilityThresholdPct": 33
+}
